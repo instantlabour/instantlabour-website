@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>EmployerLogin </title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Exo:400,500,600,700">
+    <!-- MAIN/RESPONSIVE STYLE -->
+    <link href="/Content/css/main-1.0.6.css" rel="stylesheet"/>
+<link href="/Content/css/responsive-1.0.6.css" rel="stylesheet"/>
+
+    
+    
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="ov-hidden ">
+    
+
+
+<!-- CONTENT -->
+
+
+<form action="/emp-login/" method="post">    <div class="vertical-align">
+        <div class="table">
+            <div class="cell">
+
+                <div class="wrapper signin">
+                    <span class="title">sign in</span>
+                    <div class="rel hover-line">
+
+                        <input autocomplete="off" data-val="true" data-val-required="Please EnterEmail/Mobile No " id="EmpModel_Emailorcontact" name="EmpModel.Emailorcontact" placeholder="Email/Mobile Number" type="text" value="" />
+                        <span class="field-validation-valid" data-valmsg-for="EmpModel.Emailorcontact" data-valmsg-replace="true"></span>
+
+                    </div>
+                    <div class="rel hover-line">
+                        <input autocomplete="off" data-val="true" data-val-required="Please Enter Password " id="password" maxlength="20" name="EmpModel.Pwd" placeholder="Password" type="password" />
+                        <span title="Show Password" class="show-password"></span>
+                        <span class="field-validation-valid" data-valmsg-for="EmpModel.Pwd" data-valmsg-replace="true"></span>
+
+
+                        
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <a href="/employer/forgotpassword/">forgot password?</a>
+                    <div class="clearfix"></div>
+
+                    <!-- <div class="rel submit">
+                        <input type="submit" value="" onclick="window.location='dummy-map.html';">
+                    </div>
+                    <div class="clearfix"></div> -->
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="proceed">
+        <input type="submit" value="Proceed">
+    </div>
+    <div class="clearfix"></div>
+</form>
+    <!-- NOTIFICATION -->
+    <div class="notify-div">
+        <div class="absolute">
+            <div class="table">
+                <div class="cell">
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SITE LOADER -->
+    <div class="site-loader">
+        <div class="absolute">
+            <div class="table">
+                <div class="cell">
+                    <img src="/Content/images/site-loader.svg" alt="JobVeno">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/Content/js/jquery.min.js"></script>
+
+    <script src="/Content/js/tweenmax.min.js"></script>
+<script src="/Content/js/custom-1.0.6.js"></script>
+
+    
+    <script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('form').submit(function () { if ($(this).valid()) { showLoader(); } });
+
+ });</script>
+    
+</body>
+</html>

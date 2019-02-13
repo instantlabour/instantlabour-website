@@ -1,0 +1,158 @@
+<style>
+* { box-sizing: border-box; }
+body {
+  font: 16px Arial; 
+}
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9; 
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+</style>
+<div class="autocomplete" style="width:300px;">
+    <input id="myInput" type="text" name="myCountry" placeholder="Select Your City">
+  </div>
+<script>
+var countries =["Alappuzha","Ernakulam","Idukki","Kannur","Kasaragod","Kollam","Kottayam","Kozhikode","Malappuram","Palakkad","Pathanamthitta","Thiruvananthapuram","Thrissur","Wayanad","Alappuzha","Arookutty","Aroor","Bharanikkavu","Chengannur","Chennithala","Cheppad","Cherthala","Chingoli","Ezhupunna","Haripad","Kandalloor","Kanjikkuzhi","Kannamangalam","Karthikappally","Kattanam","Kayamkulam","Keerikkad","Kodamthuruth","Kokkothamangalam","Komalapuram","Krishnapuram","Kumarapuram","Kurattissery","Kuthiathode","Mannanchery(Mannancherry)","Mannar","Mavelikkara","Muhamma","Muthukulam","Pallippuram","Pathirappally","Pathiyoor","Puthuppally","Thaikattussery","Thanneermukkam(Thanneermukkom)","Thazhakara","Vayalar","Alangad","Aluva","Amballur","Angamaly","Chelamattom","Chendamangalam","Chengamanad","Cheranallur","Choornikkara","Chowwara","Edathala","Elamkunnapuzha","Eloor","Eramalloor","Kadamakkudy","Kadungalloor","Kakkanad","Kalady","Kalamassery","Kanayannur","Karumalloor","Kizhakkumbhagom","Kochi[Cochin]","Koovappady","Kothamangalam","Kottuvally","Kumbalam","Kumbalangy","Kunnathunad","Kureekkad","Manakunnam","Maradu","Marampilly","Mattoor","Moothakunnam","Mulamthuruthy(Mulanthuruthy)","Mulavukad","Muvattupuzha","Nedumbassery","Njarackal","Paravur","Perumbavoor","Puthencruz","Puthenvelikkara","Puthuvype","Thekkumbhagom","Thiruvankulam","Thrippunithura","Vadakkekara","Vadakkumbhagom","Varappuzha","Vazhakkala","Vazhakulam","Velloorkunnam","Vengola","Thodupuzha","Ancharakandy(Anjarakkandy)","AzhikodeNorth","AzhikodeSouth","Chala","Cheleri","Chelora","Cherukunnu","Cheruthazham","Chirakkal","Chockli","Dharmadom","Elayavoor","Eranholi","Eruvatti(Eruvatty)","Ezhome","Irikkur","Iriveri","Kadachira","Kadannappalli","Kadirur","Kalliasseri","Kandamkunnu","Kanhirode","Kannadiparamba","Kannapuram","Kannur","KannurCantonment","Karivellur","Keezhallur","Kolacherry","Kolavelloor","Koodali","Koothuparamba(Kuthuparamba)","Kottayam-Malabar","Kunhimangalam","Kurumathur","Kuttiattoor","Madayi","Manantheri","Mangattidam","Maniyoor","Mattannur(Mattanur)","Mavilayi","Mayyil","Mokeri","Munderi","Muzhappilangad","Narath","NewMahe","Paduvilayi","Pallikkunnu","Panniyannur","Panoor","Pappinisseri","Pariyaram(Pilathara)","Pathiriyad","Pattiom","Payyannur(Payyanur)","Peralassery(Peralasseri)","Peringathur","Pinarayi","Puzhathi","Taliparamba","Thalassery","Thottada","Valapattanam","Varam","Ajanur","BangraManjeshwar","Bare","Chemnad","Chengala","Hosabettu","Kanhangad","Kasaragod","Keekan","Koipady","Kudlu","Kunjathur","Madhur","Mangalpady","Maniyat","Manjeshwar","Mogral","NorthThrikkaripur","Pallikkara","Perole","Pilicode","Puthur","Shiribagilu","Shiriya","SouthThrikkaripur","Udma","Uppala","Adichanalloor","Adinad","Ayanivelikulangara","Chavara","Elampalloor","Kallelibhagom","Karunagappally(Karunagappalli)","Kollam","Kottamkara","Kottarakkara","Kulasekharapuram","Mayyanad","Meenad","Nedumpana","Oachira","Panayam","Panmana","Paravoor(Paravur)","Perinad","Poothakkulam","Punalur","Thazhuthala","Thodiyoor","Thrikkadavoor","Thrikkaruva","Thrikkovilvattom","Vadakkumthala","Aimanam","Athirampuzha","Changanassery","ChengalamSouth","Chethipuzha","Erattupetta","Ettumanoor","Kottayam","Nattakam","Paippad","Palai","Panachikkad","Perumbaikad","Puthuppally","Thrikkodithanam","Vaikom","Vijayapuram","Atholi","Ayancheri","Azhiyur","Balusseri(Balussery)","Beypore","Chekkiad","Chelannur","Chemancheri","Cheruvannur","Chorode","Edacheri","Eramala","Eravattur","Feroke","Iringal","Kakkodi","Karuvanthuruthy","Keezhariyur","Koothali","Kottappally","Kozhikode[Calicut]","Kozhukkallur","Kunnamangalam","Kunnummal","Kuruvattur","Kuttikkattoor","Maniyur","Mavoor","Menhaniam","Meppayyur(Meppayur)","Nadapuram","Naduvannur","Nanmanda","Olavanna","Palayad","Panangad","Pantheeramkavu","Perumanna","Peruvayal","Poolacode","Quilandy(Koyilandy)","Ramanattukara","Thalakkulathur","Thazhecode","Thikkody(Thikkodi)","Thuneri","Thurayur","Ulliyeri","Vadakara(Vatakara)","Valayam","Villiappally","AbduRahimanNagar","Alamcode","Ariyallur","Chelambra(Idimuzhikkal)","Cheriyamundam(Ceriyamundam)","Cherukavu","Edappal(Edapal)","Irimbiliyam","Kalady","Kannamangalam","Kattipparuthi(Kattipparutti)","Kizhuparamba","Kodur","Kondotty","Koottilangadi","Kottakkal","Kuttippuram","Malappuram","Manjeri","Marancheri(Maranchery)","Moonniyur(Thalappara)","Naduvattom","Nannambra","Neduva","Nilambur","Othukkungal","Pallikal","Parappur","Perinthalmanna(Perintalmanna)","Perumanna","Peruvallur","Ponmundam","Ponnani","Talakkad","Tanalur","Thenhippalam(Chelari)","Thennala(Tennala)","Thirunavaya(Tirunavaya)","Tirur","Tirurangadi","Triprangode","Urakam","Vazhayur","Vengara","Alathur","Chittur-Thathamangalam","Hemambikanagar","Koduvayur","Mannarkad-I","Marutharode","Muthuthala","Ongallur-I","Ongallur-II","Ottappalam(Ottapalam)","Palakkad","Pattambi","Pirayiri","PudusseryCentral","PudusseryWest","Puthunagaram","Puthuppariyaram","Shoranur","Thirumittacode-II","Thrithala","Vaniyamkulam-II","Adoor","Kozhenchery(Kozhencherry)","Pathanamthitta","Thiruvalla(Tiruvalla)","Alamcode","Athiyannur","Attingal","Azhoor","Edakkode","Iroopara","Kalliyoor","Kanjiramkulam","Karakulam","Keezhattingal","Kizhuvalam-Koonthalloor","Kudappanakkunnu","Kulathummal","Malayinkeezhu","Nedumangad","Neyyattinkara","Pallichal","Pallippuram","Parassala","Parasuvaikkal","Sreekaryam","Thiruvananthapuram[Trivandrum]","Uliyazhathura","Vakkom","Varkala","Vattappara","Vattiyoorkavu","Veiloor","Venganoor","Vilappil","Vilavoorkkal","Adat","Akathiyoor","Ala","Alur","Amballur","Anjur","Anthicad(Anthikad)","Avanur","Avinissery","Brahmakulam","Chalakudy","Chavakkad","Chelakkara","Chendrappini","Cherpu","Cheruthuruthi","Chevvoor","Chiramanangad(Chermanangad)","Chiranellur","Chittanda","Chittilappilly","Choolissery","Choondal","Desamangalam","Edakkalathur","Edakkazhiyur","Edathirinji","Edathiruthy","Edavilangu","Elavally","Enkakkad","Eranellur","Eravu","Eyyal","Guruvayoor(Guruvayur)","Iringaprom","Irinjalakuda","Kadavallur","Kadikkad","Kainoor","Kaipamangalam","Kaiparamba","Kallettumkara","KallurThekkummuri","KallurVadakkummuri","Kandanassery","Kaniyarkode","Karamuck","Karikkad","Kariyannur","Kattakampal","Kattur(Kattoor)","Killannur","Kizhakkummuri","Kizhuppillikkara","Kodannur","Kodungallur","Kolazhy","Koratty","Kottappuram","Kozhukkully","Kumaranellur","Kunnamkulam","Kurichikkara","Kurumpilavu","Kuttoor","Madathumpady","Madayikonam","Manakkody","Manalur(Manaloor)","Manavalassery","Marathakkara","Methala","Minalur","Mullassery","Mundathikode","MuringurVadakkummuri","Nadathara","Nedumpura","Nelluwaya","Nenmenikkara","Oorakam","Orumanayur","Padiyam","Padiyur","Palissery","Pallippuram","Paluvai","Panangad","Pappinivattom","Parakkad","Paralam","Parappukkara","Pavaratty","Pazhanji","Perakam","Peramangalam","Peringandoor","Perinjanam","Pookode","Poomangalam","Porathissery","Porkulam","Pottore","Poyya","Pullur","Punnayur","Punnayurkulam","Puranattukara","Puthukkad","Puthur","Puzhakkal","Talikkulam(Thalikulam)","Thaikkad","Thangalur","Thanniyam","Thekkumkara","Tholur","Thrissur","Trikkur","Vadakkekad","Vadakkumkara","Vadakkummuri","Vadama","Vadanappally","Vallachira","Vellanikkara","Vellookkara","Velur","Veluthur","Venginissery","Venkitangu","Venmanad","Vylathur","Wadakkanchery(Wadakkancherry)","Kalpetta"];
+</script>
+<script>
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        e.preventDefault();
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+/*execute a function when someone clicks in the document:*/
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+</script>
+<script>
+autocomplete(document.getElementById("myInput"), countries);
+</script>

@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>SignUp [Step 1] - Instant Labour</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Exo:400,500,600,700">
+    <!-- MAIN/RESPONSIVE STYLE -->
+    <link href="/Content/css/main-1.0.6.css" rel="stylesheet"/>
+<link href="/Content/css/responsive-1.0.6.css" rel="stylesheet"/>
+
+    
+    
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<style>
+.validation{
+    color:red;
+    font-weight: bold;
+    visibility:hidden;
+}
+</style>
+</head>
+<body class="hhhh ">
+    
+
+<form action="canform.php" method="post" enctype="multipart/form-data"><div class="vertical-align">
+    <div class="table">
+        <div class="cell">
+            <div class="wrapper signin set-margin-bottom">
+                <span class="title">sign up</span>
+                <div class="rel hover-line">
+                    <input autocomplete="off" data-val="true" data-val-length="Maximum character limit exceeded !" data-val-length-max="198" data-val-regex="Specify valid input" data-val-regex-pattern="^.*[a-zA-Z]+(.|\n)*$" data-val-required="Please specify name" id="Name" name="Name" placeholder="Name" type="text" value="" />
+                    <span class="field-validation-valid" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+                </div>
+                <div class="rel hover-line">
+                    <input autocomplete="off" data-val="true" data-val-length="Invalid mobile number" data-val-length-max="20" data-val-length-min="10" data-val-regex="Entered contact number format is not valid." data-val-regex-pattern="^[0-9()+-]*$" data-val-required="Please specify mobile number" id="Mobile" name="Mobile" placeholder="Mobile No." type="text" value="" />
+                    <span class="field-validation-valid" data-valmsg-for="Mobile" data-valmsg-replace="true"></span>
+                </div>
+                <div class="rel hover-line">
+                    <input autocomplete="off" data-val="true" data-val-email="Please specify valid email address" id="Email" name="Email" placeholder="Email(Optional)" type="text" value="" /> 
+                    <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                </div>
+                
+                <div class="rel common gender">
+                    <span class="title1">Gender</span>
+                    <input checked="checked" data-val="true" data-val-required="Please choose gender" id="male" name="Gender" type="radio" value="Male" /><i>male</i>
+                    <input id="female" name="Gender" type="radio" value="Female" /><i>female</i>
+        
+                </div>
+                <div class="rel hover-line">
+                    <input type="text" id="username" name="username" placeholder="Username" type="text" value="" onchange="checkUserName()"/>
+                    <span class="field-validation-valid" data-valmsg-for="Username" data-valmsg-replace="true"></span>
+                </div>
+                <span class="validation" id="userval">Username already exists</span>
+                <div class="rel hover-line">
+                    <input id="pwd1" name="pwd1" placeholder="Password" type="password"/>
+                    <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+
+                </div>
+                <div class="rel hover-line">
+                    <input id="pwd2" name="pwd2" placeholder="Retype Password" type="password" value="" onkeyup="checkPass()"/>
+                    <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                </div>
+                <span class="validation" id="passval">Passwords does not match.</span>
+                <div class="clearfix"></div>
+                <div class="rel avatar">
+                    <span class="field-validation-error" id="sizeimg" hidden>image size exceeds</span>     
+                    <input accept="image/*" data-val="true" data-val-regex="Please upload an image file" data-val-regex-pattern="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.jpg|.JPG|.jpeg|.JPEG|.gif|.GIF|.png|.PNG|.bmp|.BMP)$" id="fileToUpload" name="fileToUpload" type="file" value="" />
+                    <span class="field-validation-valid" data-valmsg-for="Avatar" data-valmsg-replace="true"></span>
+                    <span class="upload-avatar" data-placeholder="choose your avatar"><em></em></span>                  
+                
+                </div>
+
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+<div class="proceed">
+    <input type="submit" name="submit" value="Proceed">
+</div>
+<div class="clearfix"></div>
+</form>
+    <!-- NOTIFICATION -->
+    <div class="notify-div">
+        <div class="absolute">
+            <div class="table">
+                <div class="cell">
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SITE LOADER -->
+    <div class="site-loader">
+        <div class="absolute">
+            <div class="table">
+                <div class="cell">
+                    <img src="/Content/images/site-loader.svg" alt="JobVeno">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/Content/js/jquery.min.js"></script>
+
+    <script src="/Content/js/tweenmax.min.js"></script>
+<script src="/Content/js/custom-1.0.6.js"></script>
+
+    
+    <script src="/Scripts/jquery.validate.js"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+$(function () {
+     $('form').submit(function () { if ($(this).valid()) { showLoader(); } });
+});
+
+function checkUserName(){
+    var username = $("#username").val();
+    $.post("checkuser.php",{
+        username
+    },function(data, status){
+        if(data == "true"){
+            $("#userval").css("visibility","visible");
+        }else{
+            $("#userval").css("visibility","hidden");
+        }
+    });
+}
+
+function checkPass(){
+    var pass1 = $("#pwd1").val();
+    var pass2 = $("#pwd2").val();
+    if(pass1 == pass2){
+        $("#passval").css("visibility","hidden");
+    }else{
+        $("#passval").css("visibility","visible");
+    }
+}
+</script>
+    
+</body>
+</html>
